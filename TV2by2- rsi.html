@@ -1,0 +1,79 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<head>
+    <title>Trang web của tôi</title>
+    <script>
+        window.onload = function () {
+            // Lấy URL của trang web hiện tại
+            var url = window.location.href;
+
+            // Tìm vị trí của chuỗi "para="
+            var paraIndex = url.indexOf('symbol=');
+
+            // Nếu tìm thấy chuỗi "para=" trong URL
+            if (paraIndex !== -1) {
+                // Lấy phần của chuỗi bắt đầu từ vị trí của chuỗi "para=" và cắt bỏ các ký tự trước dấu "="
+                var paraValue = url.substring(paraIndex + 7);
+
+                // Hiển thị giá trị của tham số "para"
+                console.log('Giá trị của tham số "para" là: ' + paraValue);
+                var iframes = document.getElementsByTagName('iframe');
+                for (let i = 0; i < iframes.length; i++) {
+                    const iframe = iframes[i];
+                    var url = iframe.getAttribute('src');
+                    url += '&symbol='+paraValue;
+                    iframe.setAttribute('src', url);
+                }
+
+            } else {
+                // Nếu không tìm thấy tham số "para" trong URL
+                console.log('Không tìm thấy giá trị của tham số "para" trong URL.');
+            }
+
+
+        };
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item"
+                        src="https://www.tradingview.com/chart/fil44gfa/?interval=3"></iframe>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item"
+                        src="https://www.tradingview.com/chart/fil44gfa/?interval=5"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item"
+                        src="https://www.tradingview.com/chart/fil44gfa/?interval=15"></iframe>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item"
+                        src="https://www.tradingview.com/chart/fil44gfa/?interval=60"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+</script>
+
+</html>
