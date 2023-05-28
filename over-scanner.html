@@ -11,27 +11,57 @@
       height: 1000px;
     }
     </style>
+    <script>
+       
+        function init() {
+            
+            var iframes = document.getElementsByTagName('iframe');
+            for (let i = 0; i < iframes.length; i++) {
+                const iframe = iframes[i];
+                let url = ''
+                
+                switch (i) {
+                    case 0:
+                        url = `https://www.tradingview.com/chart/XRvA0r4N/?interval=15`
+                        break;
+                    case 1:
+                    url = `https://www.tradingview.com/chart/XRvA0r4N/?interval=30`
+                        break;
+                    case 2:
+                    url = `https://www.tradingview.com/chart/XRvA0r4N/?interval=60`
+                        break;
+                    
+                    default:
+                        break;
+                }
+                iframe.setAttribute('src', url);
+                console.log('url',url)
+            }
+            document.title = symbol + ' - Demand&Supply';
+
+        }
+    </script>
     </head>
-<body>
+<body onload="init()">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4">
                 <div class="embed-responsive embed-responsive-1by1 h1000">
-                  <iframe class="embed-responsive-item" width="200"  src="https://www.tradingview.com/chart/XRvA0r4N/?interval=15"></iframe>
+                  <iframe class="embed-responsive-item" width="200"  src="loader.html"></iframe>
                 </div>
             </div>
         </div>
         <div class="row">
           <div class="col-sm-4">
               <div class="embed-responsive embed-responsive-1by1 h1000">
-                <iframe class="embed-responsive-item" src="https://www.tradingview.com/chart/XRvA0r4N/?interval=30"></iframe>
+                <iframe class="embed-responsive-item" src="loader.html"></iframe>
               </div>
           </div>
       </div>        
       <div class="row">
         <div class="col-sm-4">
             <div class="embed-responsive embed-responsive-1by1 h1000">
-              <iframe class="embed-responsive-item" src="https://www.tradingview.com/chart/XRvA0r4N/?interval=60"></iframe>
+              <iframe class="embed-responsive-item" src="loader.html"></iframe>
             </div>
         </div>
     </div>
