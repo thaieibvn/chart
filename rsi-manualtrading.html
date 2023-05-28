@@ -1,0 +1,156 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<head>
+    <title>Mypage</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        #inputBox {
+            width: 200px;
+            height: 30px;
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #goButton {
+            width: 80px;
+            height: 30px;
+            font-size: 14px;
+            border-radius: 5px;
+            background-color: #8BC34A;
+            color: #fff;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        var href = 'https://www.tradingview.com/chart/pGre91jv/'
+        var suggestions = ['TOTAL', 'BTC.D', 'USDT.D', 'BTCUSDT', 'ETHUSDT', 'INJUSDT', 'STGUSDT', 'WOOUSDT','MEXC:PEPEUSDT','MEXC:PEPEUSDT.P'];
+
+
+        window.onload = function () {
+
+            $("#inputBox").autocomplete({
+                source: suggestions,
+                minLength: 0,
+                select: function (event, ui) {
+                    // Thực hiện chuyển hướng đến trang web cần đến với giá trị đã chọn
+                    changeIframe(ui.item.value);
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+            $("#goButton").click(function () {
+                var value = $("#inputBox").val();
+                changeIframe(value);
+            });
+            $("#inputBox").keyup(function (event) {
+                // Kiểm tra xem nếu phím vừa nhấn là Enter
+                if (event.keyCode === 13) {
+                    var value = $(this).val();
+                    changeIframe(value);
+                }
+            });
+            var url = window.location.href;
+            var paraIndex = url.indexOf('symbol=');
+
+            // Nếu tìm thấy chuỗi "para=" trong URL
+            if (paraIndex !== -1) {
+                // Lấy phần của chuỗi bắt đầu từ vị trí của chuỗi "para=" và cắt bỏ các ký tự trước dấu "="
+                var symbol = url.substring(paraIndex + 7);
+                console.log('Giá trị của tham số "para" là: ' + symbol);
+                changeIframe(symbol)
+
+            } else {
+                // Nếu không tìm thấy tham số "para" trong URL
+                console.log('Không tìm thấy giá trị của tham số "para" trong URL.');
+            }
+
+
+        };
+        function gotoHref() {
+            var selectedValue = document.getElementById("inputBox").value;
+            changeIframe(selectedValue)
+        }
+        function changeIframe(symbol) {
+            symbol = symbol.toUpperCase();
+            if (symbol.indexOf('USDT') == -1 && $.inArray(symbol, suggestions) < 0) symbol += 'USDT'
+            if (symbol=='TOTAL' || symbol.indexOf('.D')!=-1) symbol='CRYPTOCAP:'+symbol
+
+            var iframes = document.getElementsByTagName('iframe');
+            for (let i = 0; i < iframes.length; i++) {
+                const iframe = iframes[i];
+                let url = ''
+                
+                switch (i) {
+                    case 0:
+                        url = href + `?interval=3&symbol=${symbol}`
+                        break;
+                    case 1:
+                        url = href + `?interval=5&symbol=${symbol}`
+                        break;
+                    case 2:
+                        url = href + `?interval=15&symbol=${symbol}`
+                        break;
+                    case 3:
+                        url = href + `?interval=60&symbol=${symbol}`
+                        break;
+                    default:
+                        break;
+                }
+                iframe.setAttribute('src', url);
+                console.log('url',url)
+            }
+            document.title = symbol + ' - Demand&Supply';
+
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text" id="inputBox" placeholder="Enter value here">
+
+    <button id="goButton" onclick="gotoHref()">Go</button>
+    <a href="https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe/related">help: TW refuse connect</a>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="loader.html"></iframe>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="loader.html"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="loader.html"></iframe>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="loader.html"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+</script>
+
+</html>
